@@ -156,6 +156,18 @@ pub fn get_outbound_interface() -> Option<OutboundInterface> {
     ];
 
     all_outbounds.sort_by(|left, right| {
+        match (left.addr_v4, right.addr_v4) {
+            (Some(_), None) => return std::cmp::Ordering::Less,
+            (None, Some(_)) => return std::cmp::Ordering::Greater,
+            (Some(left), Some(right)) => {
+                if left.is_global() && !right.is_global() {
+                    return std::cmp::Ordering::Less;
+                } else if !left.is_global() && right.is_global() {
+                    return std::cmp::Ordering::Greater;
+                }
+            }
+            _ => {}
+        }
         match (left.addr_v6, right.addr_v6) {
             (Some(_), None) => return std::cmp::Ordering::Less,
             (None, Some(_)) => return std::cmp::Ordering::Greater,
