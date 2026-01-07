@@ -845,6 +845,7 @@ dependencies = [
 [[package]]
 name = "boring-noise"
 version = "0.1.0"
+source = "git+https://github.com/Small-Ku/boring-noise.git?rev=90c848f#90c848f61668d4d3005a2acc528a4a0fba4e63b0"
 dependencies = [
  "aead",
  "aws-lc-rs",
